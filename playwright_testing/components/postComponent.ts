@@ -5,6 +5,9 @@ export class PostComponent {
   private readonly id: string | undefined;
   private readonly parent: Locator
   public readonly likeIcon: Locator;
+  //new
+  public readonly moreIcon: Locator;
+  //
 
   constructor(page: Page, id?: string) {
     this.page = page;
@@ -12,11 +15,17 @@ export class PostComponent {
     this.parent = id ? this.page.getByRole('article').filter({has: this.page.locator(`a[href*='${id}']`)}) : this.page.getByRole('article')
 
     this.likeIcon = this.parent.locator("button[data-testid*='like'] > div[style]")
+    //new
+    this.moreIcon = this.parent.locator("button[data-testid*='caret'] > div[style]")
+    //
   }
-
 
   public async clickLikeIcon(){
     await this.likeIcon.click();
+  }
+
+  public async clickMoreIcon(){
+    await this.moreIcon.click();
   }
 }
 

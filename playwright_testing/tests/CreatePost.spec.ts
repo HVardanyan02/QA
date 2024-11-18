@@ -2,6 +2,7 @@ import { expect, test } from '../utils/fixturesNew';
 import { CreatePost } from '../pages/HomePage/Feed/createPost';
 import { PostComponent } from '../components/postComponent';
 
+
 test('Verify post button is disabled. Message is visible @C126', async ({ mainPage, request }) => {
   const createPost = new CreatePost(mainPage.getPage());
   let post: PostComponent;

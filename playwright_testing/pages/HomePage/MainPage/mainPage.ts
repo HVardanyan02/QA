@@ -18,7 +18,6 @@ export class MainPage {
     locator(selector: string) {
         return this.page.locator(selector);
       }
-
     
     public async areNavigationIconsVisible(): Promise<boolean> {
         return await this.navigationIcons.isVisible();
