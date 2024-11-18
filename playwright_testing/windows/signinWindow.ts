@@ -30,6 +30,7 @@ public readonly title: Locator
         await this.nextButton.click();
         return new AdditionalWindow(this.page)
     }
+    
     public async fillUserNameAndGoNext(username: string){
         await this.fillUserName(username)
         return await this.clickNextButton()

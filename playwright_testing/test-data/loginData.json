@@ -1,0 +1,13 @@
+{
+  "users": {
+    "default": {
+      "username": "Automation96078",
+      "password": "$automation_user123",
+      "email": "automation_user@yopmail.com"
+    },
+    "additionalUser": {
+      "username": "Automation960789",
+      "password": "$automation124"
+    }
+  }
+}
