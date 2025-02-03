@@ -25,8 +25,14 @@ export class CreatePost {
       this.tweetButton.click()
     ])
 
+    console.log("::::: ", JSON.stringify( await createTweetResponse.json(), null, 4))
+    console.log("::::: ", JSON.stringify(createTweetResponse.request().postDataJSON(), null, 4))
+
     const postId = (await createTweetResponse.json())?.data?.create_tweet?.tweet_results?.result?.rest_id
-    return new PostComponent(this.page, postId);
+    return {postComponent: new PostComponent(this.page, postId),
+      postId: postId,
+      queryId: createTweetResponse.request().postDataJSON().queryId
+    };
   }
 
   public async isPostButtonEnabled(): Promise<boolean> {

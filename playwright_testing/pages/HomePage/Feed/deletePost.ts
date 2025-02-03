@@ -12,7 +12,6 @@ export class DeletePost {
     this.moreIcon = page.getByTestId('caret');
     this.delete = page.getByRole('menuitem', { name: 'Delete' });
     this.deleteButton = page.getByTestId('confirmationSheetConfirm')
-    
   }
 
   private async clickDelete() {

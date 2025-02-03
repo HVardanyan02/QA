@@ -1,23 +1,61 @@
 import { expect, test } from '../utils/fixturesNew';
 import { CreatePost } from '../pages/HomePage/Feed/createPost';
 import { PostComponent } from '../components/postComponent';
+import { Api } from '../api_service/api';
+let postId;
+let queryId;
 
+test.afterEach(async ({request})=> {
+  await new Api(request).deleteTweet({tweetId: postId, queryId})
+})
 
-test('Verify post button is disabled. Message is visible @C126', async ({ mainPage, request }) => {
+test('Verify post button is disabled. Message is visible @C126', async ({ mainPage, page, context, browser }, testInfo) => {
   const createPost = new CreatePost(mainPage.getPage());
-  let post: PostComponent;
+  let postComponent: PostComponent;
+  await page.waitForURL(/home/)
+
+  const url =page.url();
+  console.log(url);
+
+  await page.pause()
+
+
+
+  const newPage = await page.context().newPage();
+  await newPage.goto(url)
+  console.log("::: count ::: ", context.pages().length)
+
+  await newPage.pause()
+
+  await page.bringToFront()
+
+  await page.pause()
+  await context.pages()[1].close()
+  await page.pause()
+
+
+  const newCont = await browser.newContext();
+  await (await newCont.newPage()).goto(url)
+
+
+
+
+
+
 
   await test.step('Enter text less than 280 characters and verify post button is enabled', async () => {
-    post = await createPost.fillTweetAndClickPost('new tweet');
+   ({postComponent, postId, queryId} = await createPost.fillTweetAndClickPost('new tweet'));
   });
 
   await test.step('Verify own post rection funcionality', async () => {
-    await post.clickLikeIcon();
+    await postComponent.clickLikeIcon();
     //const message = await mainPage.locator('Nice work! Your timeline’s getting better. The more you like, the better your timeline will be – keep liking the stuff you’re into.');
-    // await expect(message).toBeVisible();
+    //await expect(message).toBeVisible();
     //const unlikeColor = 'rgb(113, 118, 123)';
-    await expect(post.likeIcon).toHaveCSS("color", "rgb(249, 24, 128)");
-    await expect(post.likeIcon).toHaveText('1');
+    await expect(postComponent.likeIcon).toHaveCSS("color", "rgb(249, 24, 128)");
+    await expect(postComponent.likeIcon).toHaveText('1');
+
+    await page.pause()
   });
 
   // Optional cleanup
